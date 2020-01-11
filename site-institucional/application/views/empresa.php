@@ -1,5 +1,5 @@
 <?php $this->load->view('commons/header')?>
 
-<p><?=$content?></p>
+{content}
 
 <?php $this->load->view('commons/footer')?>

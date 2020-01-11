@@ -10,12 +10,12 @@ class Institucional extends CI_Controller{
 
     public function Empresa(){
         $data['content'] = 'Informações sobre a empresa';
-        $this->load->view('empresa',$data);
+        $this->parser->parse('empresa',$data);
     }
 
     public function Servicos(){
         $data['content'] = 'Informações sobre nossos serviços';
-        $this->load->view('servicos',$data);
+        $this->parser->parse('servicos',$data);
     }
 }
 ?>
