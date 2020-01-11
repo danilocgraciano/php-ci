@@ -8,7 +8,7 @@
             <a class="nav-item nav-link" href="<?=base_url('empresa')?>">A Empresa</a>
             <a class="nav-item nav-link" href="<?=base_url('servicos')?>">Serviços</a>
             <a class="nav-item nav-link" href="<?=base_url('trabalhe-conosco')?>">Trabalhe Conosco</a>
-            <a class="nav-item nav-link" href="<?=base_url('contato')?>">Fale Conosco</a>
+            <a class="nav-item nav-link" href="<?=base_url('fale-conosco')?>">Fale Conosco</a>
         </div>
     </div>
 </nav>
