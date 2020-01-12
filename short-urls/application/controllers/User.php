@@ -5,23 +5,24 @@ class User extends CI_Controller {
 
     function __construct(){
         parent::__construct();
-        $this->load->model('User_model');
+        $this->load->model('Users_model');
         $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
     }
 
     function Login() {
         $this->form_validation->set_rules('email','Email','required|min_length[1]|valid_email|trim');
-        $this->form_validation->set_rules('passwd','Senha','required|min_length[6]|trim');
+        $this->form_validation->set_rules('passw','Senha','required|min_length[6]|trim');
 
-        if ($this->form_validaion->run() == false) {
+        if ($this->form_validation->run() == false) {
             $data['error'] = validation_errors();
         } else {
             $dataLogin = $this->input->post();
-            $res = $this->User_model->Login($dataLogin);
+            $res = $this->Users_model->Login($dataLogin);
 
             if ($res) {
                 foreach($res as $result){
-                    if (password_verify($dataLogin['passwd'],$result->passwd)){
+                    if (password_verify($dataLogin['passw'],$result->passw)){
                         $data['error'] = null;
                         $this->session->set_userdata('logged',true);
                         $this->session->set_userdata('email',$result->email);
@@ -49,13 +50,13 @@ class User extends CI_Controller {
     function Register() {
         $this->form_validation->set_rules('name','Nome','required|min_length[3]|trim');
         $this->form_validation->set_rules('email','Email','required|min_length[1]|valid_email|trim');
-        $this->form_validation->set_rules('passwd','Senha','required|min_length[6]|trim');
+        $this->form_validation->set_rules('passw','Senha','required|min_length[6]|trim');
 
-        if ($this->form_validaion->run() == false) {
+        if ($this->form_validation->run() == false) {
             $data['error'] = validation_errors();
         } else {
             $dataRegister = $this->input->post();
-            $res = $this->User_model->Save($dataRegister);
+            $res = $this->Users_model->Save($dataRegister);
             if ($res) {
                 $data['error'] = null;
             } else {
@@ -76,17 +77,17 @@ class User extends CI_Controller {
     function UpdatePassword() {
         $data['success'] = null;
         $data['error'] = null;
-        $this->form_validation->set_rules('passwd','Senha','required|min_length[6]|trim');
+        $this->form_validation->set_rules('passw','Senha','required|min_length[6]|trim');
 
         if ($this->form_validation->run() == false) {
             $data['error'] = validation_errors();
         } else {
             $data = $this->input->post();
-            $this->User_model->Update($data);
+            $this->Users_model->Update($data);
             $data['success'] = 'Senha alterada com sucesso!';
             $data['error'] = null;
         }
-        $data['user'] = $this->User_model->GetUser($this->session->userdata('id'));
+        $data['user'] = $this->Users_model->GetUser($this->session->userdata('id'));
         $this->load->view('alterar-senha', $data);
     }
 

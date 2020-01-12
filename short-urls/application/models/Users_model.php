@@ -1,14 +1,14 @@
 <?php
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+class Users_model extends CI_Model {
 
     function __construct(){
         parent::__construct();
     }
 
     function Save($data) {
-        $data['passwd'] = password_hash($data['passwd'], PASSWORD_DEFAULT);
+        $data['passw'] = password_hash($data['passw'], PASSWORD_DEFAULT);
 
         $this->db->insert('users', $data);
         $userID = $this->db->insert_id();
@@ -29,7 +29,7 @@ class User_model extends CI_Model {
     }
 
     function Update($data) {
-        $data['passwd'] = password_hash($data['passwd'], PASSWORD_DEFAULT);
+        $data['passw'] = password_hash($data['passw'], PASSWORD_DEFAULT);
 
         $this->db->where('id', $this->session->userdata('id'));
         $this->db->update('users', $data);

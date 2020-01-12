@@ -22,7 +22,9 @@
 
             <div class="mt-5 row justify-content-center">
             
-                <?php echo validation_errors(); ?>
+                <?php if($error){ ?>
+                    <?=$error?>
+                <?php } ?>
 
                 <?php if($short_url){ ?>
                     <p class="text-center"><a href="<?=$short_url?>" target="_blank"><?=$short_url?></a></p>
