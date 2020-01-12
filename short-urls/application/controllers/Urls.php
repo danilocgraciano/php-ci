@@ -7,6 +7,7 @@ class Urls extends CI_Controller {
         parent::__construct();
         $this->load->helper('string');
         $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
     }
 
     function Index() {
