@@ -16,7 +16,7 @@
 
                     <div class="form-group col-md-12 col-lg-12">
                         <label class="control-label" for="passw">Password</label>
-                        <input type="text" class="form-control form-control-sm" id="login_passw" name="passw" value="<?php echo set_value('passw'); ?>" required>
+                        <input type="password" class="form-control form-control-sm" id="login_passw" name="passw" value="<?php echo set_value('passw'); ?>" required>
                     </div>
 
                     <div class="col">
