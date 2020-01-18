@@ -3,11 +3,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
 
+    public $page = null;
+
     function __construct(){
         parent::__construct();
         $this->load->model('Users_model');
         $this->load->library('form_validation');
+        $this->load->library('pagination');
+
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
+
+        $this->InitPagination();
+
+    }
+
+    function InitPagination(){
+        $this->page['base_url'] = base_url('my-urls');
+        $this->page['total_rows'] = $this->db->select('*')->from('urls')->where('user_id',$this->session->userdata('id'))->count_all_results();
+        $this->page['per_page'] = 5;
+        $this->page['use_page_numbers'] = TRUE;
+        $this->pagination->initialize($this->page);
     }
 
     function Login() {
@@ -29,7 +44,7 @@ class User extends CI_Controller {
                         $this->session->set_userdata('id',$result->id);
                         redirect();
                     } else {
-                        $data['error'] = 'Senha incorreta';
+                        $data['error'] = 'Senprotectedha incorreta';
                     }
                 }
             } else {
@@ -92,11 +107,19 @@ class User extends CI_Controller {
     }
 
     function Urls() {
+
         $this->load->model('Urls_model');
-        $urls = $this->Urls_model->GetAllByUser($this->session->userdata('id'));
+
+        if($this->uri->segment(2))
+            $offset = ($this->uri->segment(2) - 1) * $this->page['per_page'];
+        else
+            $offset = 0;
+      
+        $urls = $this->Urls_model->GetAllByPage($this->session->userdata('id'), $this->page['per_page'], $offset);
         $data['urls'] = $urls;
         $data['error'] = null;
         $data['short_url'] = false;
-        $this->load->view('minhas-urls', $data);
+        $data['pagination'] = $this->pagination->create_links();
+        $this->load->view('minhas-urls',$data);
     }
 }

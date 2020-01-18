@@ -22,12 +22,15 @@
                     <?php } ?>
                 </table>
 
+                <?=$pagination?>
+                
             <?php }else{ ?>
                 <p>Nenhuma URL encurtada.</p>
             <?php } ?>
 
+
         </div>
-            
+
     </div>
 
     <div class="mt-5 row justify-content-center">

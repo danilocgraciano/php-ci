@@ -58,5 +58,6 @@ $route['logout'] = 'User/Logout';
 $route['user'] = 'User/Index';
 $route['user/register'] = 'User/Register';
 $route['my-urls'] = 'User/Urls';
+$route['my-urls/(:num)'] = 'User/Urls/$1';
 $route['update-password'] = 'User/UpdatePassword';
 $route['(:any)'] = 'Urls/Go';
